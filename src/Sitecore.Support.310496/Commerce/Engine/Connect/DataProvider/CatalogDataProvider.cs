@@ -204,7 +204,22 @@
                         var settingsField = templateFields.FirstOrDefault(x => x.Name.Equals(token["Name"].Value<string>()));
                         if (settingsField != null)
                         {
-                            fields.Add(settingsField.ID, string.Join("|", token["RelationshipList"].Values<string>()));
+                            #region fix
+                            var origininalRelationships = token["RelationshipList"].Values<string>();
+                            var deterministicRelationhips = new List<string>();
+
+                            // Get the deterministic Id for the relationship targets
+                            foreach (var relationshipId in origininalRelationships)
+                            {
+                                var deterministicId = repository.GetPathIdsForSitecoreId(relationshipId).FirstOrDefault();
+                                if (!string.IsNullOrEmpty(deterministicId))
+                                {
+                                    deterministicRelationhips.Add(deterministicId);
+                                }
+                            }
+
+                            fields.Add(settingsField.ID, string.Join("|", deterministicRelationhips));
+                            #endregion
                         }
                     }
                 }
