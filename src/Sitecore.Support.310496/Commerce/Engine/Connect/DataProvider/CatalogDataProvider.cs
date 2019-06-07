@@ -17,8 +17,9 @@
   using Sitecore.Data.Managers;
   using Sitecore.Diagnostics;
   using Sitecore.Commerce.Engine.Connect.DataProvider;
+    using Sitecore.Commerce.Engine.Connect;
 
-  public class CatalogDataProvider : Sitecore.Commerce.Engine.Connect.DataProvider.CatalogDataProvider
+    public class CatalogDataProvider : Sitecore.Commerce.Engine.Connect.DataProvider.CatalogDataProvider
   {
         public override FieldList GetItemFields(ItemDefinition item, VersionUri version, CallContext context)
         {
